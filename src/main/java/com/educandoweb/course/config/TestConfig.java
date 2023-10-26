@@ -1,15 +1,25 @@
 package com.educandoweb.course.config;
 
-import com.educandoweb.course.entities.*;
-import com.educandoweb.course.entities.enums.OrderStatus;
-import com.educandoweb.course.repositories.*;
+import java.time.Instant;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.time.Instant;
-import java.util.Arrays;
+import com.educandoweb.course.entities.Category;
+import com.educandoweb.course.entities.Order;
+import com.educandoweb.course.entities.OrderItem;
+import com.educandoweb.course.entities.Payment;
+import com.educandoweb.course.entities.Product;
+import com.educandoweb.course.entities.User;
+import com.educandoweb.course.entities.enums.OrderStatus;
+import com.educandoweb.course.repositories.CategoryRepository;
+import com.educandoweb.course.repositories.OrderItemRepository;
+import com.educandoweb.course.repositories.OrderRepository;
+import com.educandoweb.course.repositories.ProductRepository;
+import com.educandoweb.course.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
@@ -70,6 +80,11 @@ public class TestConfig implements CommandLineRunner {
 
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
 
+		Payment pay1 = new Payment(null,Instant.parse("2019-06-20T21:53:07Z"),o1);
+		
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 	}
 
 }
